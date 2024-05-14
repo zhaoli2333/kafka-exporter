@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+    <property name="logback.logdir" value="./"/>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${logback.logdir}/logs/exporter.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${logback.logdir}/logs/exporter.%i.log </fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>9</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>100MB</maxFileSize>
+        </triggeringPolicy>
+        <encoder>
+            <pattern>%d %p %t %c{16} %L - %m%n</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d %p %t %c{16} %L - %m%n</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+    </appender>
+
+
+    <!--profile为dev时生效-->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%-5p] [%d{yyyy-MM-dd HH:mm:ss.SSS}] [%C{1}:%M:%L] %m%n
+            </pattern>
+        </encoder>
+    </appender>
+<!--    <root>-->
+<!--        <level value="INFO"/>-->
+<!--        <springProfile name="dev">-->
+<!--            <appender-ref ref="CONSOLE" />-->
+<!--        </springProfile>-->
+<!--        <springProfile name="test">-->
+<!--            <appender-ref ref="FILE" />-->
+<!--        </springProfile>-->
+<!--        <springProfile name="prod">-->
+<!--            <appender-ref ref="FILE" />-->
+<!--        </springProfile>-->
+<!--        <springProfile name="prod-intl">-->
+<!--            <appender-ref ref="FILE" />-->
+<!--        </springProfile>-->
+<!--    </root>-->
+
+        <root level="INFO">
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="CONSOLE"/>
+        </root>
+</configuration>

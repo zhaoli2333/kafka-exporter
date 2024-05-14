@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: kafka-exporter-java
+  main:
+    allow-bean-definition-overriding: true
+  profiles:
+    active: "@activatedProperties@"
+    include:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  server:
+    port: 8081
+
+
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /kafka-exporter-java
+
+endpoints:
+  enabled: false
+  health:
+    enabled: true
+    time-to-live: 5000
+
+kafka:
+  cluster:
+    version: 2.8.2
+    bootstrap-servers: localhost:9092
+    user: admin
+    password: admin
+
+
+
